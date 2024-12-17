@@ -27,6 +27,11 @@ directive @link(
   Optional headers for gRPC reflection server requests
   """
   headers: [InputKeyValue!]
+
+  """
+  Optional directories to search for imported proto files.
+  """
+  proto_paths: [String!]
 ) on SCHEMA
 
 """
@@ -58,6 +63,8 @@ The `@link` directive requires specifying a source `src`, the resource's type `t
 - `id`: This is an optional field that assigns a unique identifier to the link. It's helpful for referring to the link within the schema.
 
 - `headers`: This is an optional field that assigns custom headers to the gRPC reflection server requests. Specifying a key-value map of header names and their values achieves this. (Values supports Mustache template)
+
+- `proto_paths`: This is an optional field that specifies additional directories to search for imported proto files. It only takes effect when `type` is `Protobuf`.
 
 ## Example
 
