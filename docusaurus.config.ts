@@ -114,7 +114,38 @@ export default {
         // {to: "/enterprise", label: "Enterprise", position: "left"},
         {to: "/docs", label: "Docs", position: "left"},
         {to: "/graphql", label: "Learn", position: "left"},
-        {to: "/blog", label: "Blog", position: "left"},
+        {
+          label: "Insights",
+          position: "left",
+          items: [
+            {
+              to: "/blog",
+              html: `
+                <div class="flex items-center p-1">
+                  <img
+                    class="mr-2"
+                    src="/images/home/book.svg"
+                    alt="Blogs Icon"
+                    style="width: 16px; height: 16px;"
+                  />
+                  <span class="text-content-tiny font-bold lg:text-content-small lg:font-medium">Blogs</span>
+                </div>`,
+            },
+            {
+              to: "/releases",
+              html: `
+                <div class="flex items-center p-1">
+                  <img
+                    class="mr-2"
+                    src="/images/home/git-merge.svg"
+                    alt="Releases Icon"
+                    style="width: 16px; height: 16px;"
+                  />
+                  <span class="text-content-tiny font-bold lg:text-content-small lg:font-medium">Releases</span>
+                </div>`,
+            },
+          ],
+        },
         {
           type: "search",
           position: "right",
@@ -183,6 +214,19 @@ export default {
         routeBasePath: "graphql",
         showLastUpdateTime: true,
         sidebarPath: require.resolve("./graphql/sidebar.ts"),
+      },
+    ],
+    [
+      "@docusaurus/plugin-content-docs",
+      {
+        id: "releases",
+        path: "releases",
+        routeBasePath: "releases",
+        showLastUpdateTime: true,
+        async sidebarItemsGenerator({defaultSidebarItemsGenerator, ...args}: any) {
+          const sidebarItems = await defaultSidebarItemsGenerator(args)
+          return sidebarItems.reverse()
+        },
       },
     ],
     async function tailwindPlugin() {
